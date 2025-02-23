@@ -46,14 +46,18 @@ function showError(message) {
     
     // Show error message with fade effect
     errorDiv.textContent = message;
-    errorDiv.style.opacity = '1';
+    
+    // Use setTimeout to ensure the transition triggers
+    setTimeout(() => {
+        errorDiv.classList.add('show');
+    }, 50)
     
     // Hide error message after 3 seconds
     setTimeout(() => {
-        errorDiv.style.opacity = '0';
+        errorDiv.classList.remove   ('show');
         setTimeout(() => {
             errorDiv.remove();
-        }, 300);
+        }, 500);
     }, 3000);
 }
 

@@ -45,6 +45,8 @@ body::before {
     border-radius: 10px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
 h1 {
@@ -109,14 +111,25 @@ input:focus, select:focus {
     margin-right: 8px;
 }
 
+.error-container{
+    overflow: hidden;
+    height: 0;
+    transition: all 0.5s ease;  
+}
+
 .error-message {
     color: #f00;
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
     text-align: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    max-height: 0;
+}
+
+.error-message.show {
+    opacity: 1;
+    max-height: 40px;
 }
 
 /* Responsive Design */
