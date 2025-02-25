@@ -703,7 +703,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isConfirmed) {
             // In a real application, you would clear session/localStorage and redirect
             alert('Logging out...');
-            window.location.href = 'login.html'; // Redirect to login page
+            window.location.href = 'index.html'; // Redirect to login page
         }
     }
     
