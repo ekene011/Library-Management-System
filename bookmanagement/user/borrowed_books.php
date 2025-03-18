@@ -27,8 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     exit();
 }
 
+
+
+
+
+
 // Fetch borrowed books
-$borrowed_result = $conn->prepare("SELECT books.id,books.cover, books.title, books.author, loans.due_date FROM loans 
+$borrowed_result = $conn->prepare("SELECT books.id,books.cover, books.title, books.author,loans.borrow_date, loans.due_date FROM loans 
                                    JOIN books ON loans.book_id = books.id 
                                    WHERE loans.user_id = ? AND loans.return_date IS NULL");
 $borrowed_result->bind_param('i', $user_id);
@@ -59,6 +64,7 @@ $borrowed_books = $borrowed_result->get_result();
                     <th>Cover</th>
                     <th>Title</th>
                     <th>Author</th>
+                    <th>Borrowed Date</th>
                     <th>Due Date</th>
                     <th>Actions</th>
                 </tr>
@@ -69,7 +75,8 @@ $borrowed_books = $borrowed_result->get_result();
                     <td class='book-cover'><img src="<?php if($book['cover']){echo $book['cover'];}else{echo '../assets/images/login-bg.jpg';}; ?>" alt="Book Cover"></td>
                     <td class='book-title'><?php echo $book['title']; ?></td>
                     <td class='book-author'><?php echo $book['author']; ?></td>
-                    <td class="text-danger">Due: <?php echo $book['due_date']; ?></td>
+                    <td><?php echo formatBorrowDate($book['borrow_date']); ?></td>
+                    <td class="text-danger">Due: <?php echo formatDate($book['due_date']); ?></td>
                     <td>
                         <button class="btn edit-btn return-book" data-id="<?php echo $book['id']; ?>">Return</button>
                     </td>

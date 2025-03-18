@@ -20,32 +20,33 @@
                 <h2>Library Admin</h2>
             </div>
             <nav class="sidebar-nav">
-                <ul>
-                    <li>
-                        <a href="dashboard.php"><i class="fas fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="manage_books.php"><i class="fas fa-book"></i> Books</a>
-                    </li>
-                    <li>
-                        <a href="out_of_stock.php"><i class="fas fa-empty"></i> Out of stocks</a>
-                    </li>
-                    <li>
-                        <a href="manage_users.php"><i class="fas fa-users"></i> Users</a>
-                    </li>
-                    <li>
-                        <a href="borrowed_books.php"><i class="fas fa-clock"></i> Borrowed</a>
-                    </li> 
-                    <li>
-                        <a href="overdue_reports.php"><i class="fas "></i> Overdue </a>
-                    </li>
-                    <li>
-                        <a href="history.php"><i class="fas fa-reverse"></i> History</a>
-                    </li>
-                    <li>
-                        <a href="edit_profile.php"><i class="fas fa-cog"></i> Settings</a>
-                    </li>
-                </ul>
+            <ul>
+    <li>
+        <a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    </li>
+    <li>
+        <a href="manage_books.php"><i class="fas fa-book"></i> Books</a>
+    </li>
+    <li>
+        <a href="out_of_stock.php"><i class="fas fa-box-open"></i> Out of Stock</a>
+    </li>
+    <li>
+        <a href="manage_users.php"><i class="fas fa-users"></i> Users</a>
+    </li>
+    <li>
+        <a href="borrowed_books.php"><i class="fas fa-hand-holding"></i> Borrowed</a>
+    </li> 
+    <li>
+        <a href="overdue_reports.php"><i class="fas fa-exclamation-circle"></i> Overdue</a>
+    </li>
+    <li>
+        <a href="history.php"><i class="fas fa-history"></i> History</a>
+    </li>
+    <li>
+        <a href="edit_profile.php"><i class="fas fa-cog"></i> Settings</a>
+    </li>
+</ul>
+
             </nav>
             <div class="sidebar-footer">
                 <a id="logoutBtn" href="../public/logout.php" style='text-decoration:none' class="logout-btn">
@@ -54,6 +55,30 @@
             </div>
         </aside>
 
+
+<!-- to format the dates  -->
+<?php
+function formatBorrowDate($date) {
+    $timestamp = strtotime($date);
+    $today = strtotime(date('Y-m-d'));
+    $yesterday = strtotime('-1 day', $today);
+    $sevenDaysAgo = strtotime('-7 days', $today);
+
+    if ($timestamp == $today) {
+        return "Today";
+    } elseif ($timestamp == $yesterday) {
+        return "Yesterday";
+    } elseif ($timestamp > $sevenDaysAgo) {
+        return floor(($today - $timestamp) / (60 * 60 * 24)) . " days ago";
+    } else {
+        return date('d F Y', $timestamp);
+    }
+}
+
+function formatDate($date) {
+    return date('d F Y', strtotime($date));  // Always format as "21 March 2024"
+}
+?>
 
     <!--  to make navigation menus active  -->
 <script>

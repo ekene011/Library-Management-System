@@ -33,7 +33,7 @@ $query = "SELECT books.title, books.cover, books.author, loans.borrow_date, loan
           FROM loans 
           JOIN books ON loans.book_id = books.id 
           WHERE loans.user_id = ? 
-          ORDER BY loans.return_date ASC 
+          ORDER BY loans.return_date DESC 
           LIMIT 3";  // Fetch only the latest 5 records
 
 $stmt = $conn->prepare($query);
@@ -49,8 +49,6 @@ $total_stmt->execute();
 $total_result = $total_stmt->get_result();
 $total_borrow_return = $total_result->fetch_assoc()['total'];
 
-
-
 ?>
 
 <?php include('./includes/header.php'); ?>
@@ -62,7 +60,7 @@ $total_borrow_return = $total_result->fetch_assoc()['total'];
             <span class="user-name"><?php echo $_SESSION['name']; ?></span>
             <i class="fas fa-user-circle"></i>
         </div>
-    </div>
+  </div>
 
     <div class="row">
     <div class="not-box books">
@@ -121,9 +119,9 @@ $total_borrow_return = $total_result->fetch_assoc()['total'];
                     <td class="book-cover"><img src="<?php if($record['cover']){echo $record['cover'];}else{echo '../assets/images/login-bg.jpg';}; ?>" alt="Book Cover">                    </td>
                     <td class="book-title"><?php echo $record['title']; ?></td>
                     <td class="book-author"><?php echo $record['author']; ?></td>
-                    <td><?php echo $record['borrow_date']; ?></td>
-                    <td><?php echo $record['due_date']; ?></td>
-                    <td><?php echo $record['return_date'] ? $record['return_date'] : 'Not Returned'; ?></td>
+                    <td><?php echo formatBorrowDate($record['borrow_date']); ?></td>
+                    <td><?php echo formatDate($record['due_date']); ?></td>
+                    <td><?php echo $record['return_date'] ? formatDate($record['return_date']) : 'Not Returned'; ?></td>
                     <td><?php echo $record['status']; ?></td>
                 </tr>
                 <?php endwhile; ?>

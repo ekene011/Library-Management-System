@@ -71,7 +71,7 @@ $result = $conn->query("SELECT * FROM users");
                     <i class="fas fa-plus"></i> Add New User
                 </button>
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Search books...">
+                    <input type="text" id="searchInput" placeholder="Search users...">
                     <i class="fas fa-search"></i>
                 </div>
             </div>

@@ -22,7 +22,7 @@
             <nav class="sidebar-nav">
                 <ul>
                 <li class="active">
-                        <a href="dashboard.php"><i class="fas fa-book"></i> Dashboard</a>
+                        <a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                     </li>
                     <li class="">
                         <a href="books.php"><i class="fas fa-book"></i> Browse Books</a>
@@ -44,6 +44,30 @@
                 </a>
             </div>
         </aside>
+
+<?php
+// to format the dates
+function formatBorrowDate($date) {
+    $timestamp = strtotime($date);
+    $today = strtotime(date('Y-m-d'));
+    $yesterday = strtotime('-1 day', $today);
+    $sevenDaysAgo = strtotime('-7 days', $today);
+
+    if ($timestamp == $today) {
+        return "Today";
+    } elseif ($timestamp == $yesterday) {
+        return "Yesterday";
+    } elseif ($timestamp > $sevenDaysAgo) {
+        return floor(($today - $timestamp) / (60 * 60 * 24)) . " days ago";
+    } else {
+        return date('d F Y', $timestamp);
+    }
+}
+
+function formatDate($date) {
+    return date('d F Y', strtotime($date));  // Always format as "21 March 2024"
+}
+?>
 
   <!--  to make navigation menus active  -->
 <script>

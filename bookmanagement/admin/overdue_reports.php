@@ -53,7 +53,7 @@ $overdue_count = $overdue_result->fetch_assoc()['total'];
         <table class="books-table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    
                     <th>User Name</th>
                     <th>Book Cover</th>
                     <th>Book Title</th>
@@ -63,13 +63,13 @@ $overdue_count = $overdue_result->fetch_assoc()['total'];
             <tbody>
                 <?php while ($row = $result->fetch_assoc()): ?>
                 <tr>
-                    <td><?php echo $row['id']; ?></td>
+                  
                     <td><?php echo $row['user_name']; ?></td>
                     <td>
                         <img src="../uploads/<?php echo $row['cover']; ?>" alt="Book Cover" style="width: 80px; height: 100px;">
                     </td>
                     <td><?php echo $row['title']; ?></td>
-                    <td class="danger-color overdue-book"><?php echo $row['due_date']; ?></td>
+                    <td class="danger-color overdue-book"><?php echo formatBorrowDate($row['due_date']); ?></td>
                 </tr>
                 <?php endwhile; ?>
             </tbody>

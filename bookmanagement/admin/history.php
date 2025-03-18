@@ -77,9 +77,9 @@ $result = $conn->query($query);
                     <td class="user-email"><?php echo $book['email']; ?></td>
                     <td class="book-title"><?php echo $book['title']; ?></td>
                     <td class="book-author"><?php echo $book['author']; ?></td>
-                    <td><?php echo $book['borrow_date']; ?></td>
-                    <td class='danger-color'><?php echo $book['due_date']; ?></td>
-                    <td><?php echo $book['return_date'] ? $book['return_date'] : 'Not Returned'; ?></td>
+                    <td><?php echo formatBorrowDate($book['borrow_date']); ?></td>
+                    <td class='danger-color'><?php echo formatDate($book['due_date']); ?></td>
+                    <td><?php echo $book['return_date'] ? formatDate($book['return_date']) : 'Not Returned'; ?></td>
                     <td><?php echo $book['status']; ?></td>
                     <td>
                         <?php if ($book['status'] === 'Not Returned'): ?>

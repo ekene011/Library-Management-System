@@ -77,8 +77,8 @@ $result = $conn->query($query );
                     <td class="book-cover"><img src="<?php if($book['cover']){echo $book['cover'];}else{echo '../assets/images/login-bg.jpg';}; ?>" alt="Book Cover"></td>
                     <td class="book-title"><?php echo $book['title']; ?></td>
                     <td class="book-author"><?php echo $book['author']; ?></td>
-                    <td><?php echo $book['borrow_date']; ?></td>
-                    <td class='danger-color'><?php echo $book['due_date']; ?></td>
+                    <td><?php echo formatBorrowDate($book['borrow_date']); ?></td>
+                    <td class='danger-color'><?php echo formatDate($book['due_date']); ?></td>
                     <td>
                         <button class="btn return-btn edit-btn return-book" data-id="<?php echo $book['loan_id']; ?>">Return</button>
                     </td>

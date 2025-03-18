@@ -67,7 +67,7 @@ $result = $stmt->get_result();
                     <td><img src="<?php if($row['cover']){echo $row['cover'];}else{echo '../assets/images/login-bg.jpg';}; ?>" alt="Book Cover"></td>
                     <td><?php echo $row['title']; ?></td>
                     <td><?php echo $row['author']; ?></td>
-                    <td class="danger-color overdue-book"><?php echo $row['due_date']; ?></td>
+                    <td class="danger-color overdue-book"><?php echo formatBorrowDate($row['due_date']); ?></td>
                 </tr>
                
                 

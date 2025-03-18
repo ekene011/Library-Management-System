@@ -14,7 +14,7 @@ $query = "SELECT books.title,books.cover, books.author, loans.borrow_date, loans
                  CASE WHEN loans.return_date IS NOT NULL THEN 'Returned' ELSE 'Not Returned' END AS status 
           FROM loans 
           JOIN books ON loans.book_id = books.id 
-          WHERE loans.user_id = ? ORDER BY loans.return_date ";
+          WHERE loans.user_id = ? ORDER BY loans.return_date DESC";
 $stmt = $conn->prepare($query);
 $stmt->bind_param('i', $user_id);
 $stmt->execute();
@@ -57,9 +57,9 @@ $result = $stmt->get_result();
                     <td class="book-cover"><img src="<?php if($record['cover']){echo $record['cover'];}else{echo '../assets/images/login-bg.jpg';}; ?>" alt="Book Cover">                    </td>
                     <td class="book-title"><?php echo $record['title']; ?></td>
                     <td class="book-author"><?php echo $record['author']; ?></td>
-                    <td><?php echo $record['borrow_date']; ?></td>
-                    <td><?php echo $record['due_date']; ?></td>
-                    <td><?php echo $record['return_date'] ? $record['return_date'] : 'Not Returned'; ?></td>
+                    <td><?php echo formatBorrowDate($record['borrow_date']); ?></td>
+                    <td><?php echo formatDate($record['due_date']); ?></td>
+                    <td><?php echo $record['return_date'] ? formatDate($record['return_date']) : 'Not Returned'; ?></td>
                     <td><?php echo $record['status']; ?></td>
                 </tr>
                 <?php endwhile; ?>

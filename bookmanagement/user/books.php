@@ -132,14 +132,14 @@ $result = $conn->query("SELECT * FROM books ");
 <style>
     .card-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 23%));
+        grid-template-columns: repeat(auto-fit, minmax(200px, 23.5%));
         gap: 20px;
         padding: 20px;
     }
     
     .book-card {
         background: white;
-        padding-bottom: 15px;
+        padding-bottom: 4px;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         text-align: center;
@@ -147,8 +147,8 @@ $result = $conn->query("SELECT * FROM books ");
 
     .book-card img {
         width: 100%;
-        height: 150px;
-        object-fit: fit;
+        height: 300px;
+        object-fit: cover;
         border-radius: 5px;
     }
 
@@ -192,6 +192,12 @@ $result = $conn->query("SELECT * FROM books ");
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    outline: none;
+
+}
+
+a{
+    cursor: pointer;
 }
 
 
