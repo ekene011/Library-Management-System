@@ -30,3 +30,5 @@ CREATE TABLE loans (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
 );
+
+INSERT INTO users (name, email, password, role) VALUES ('Admin', 'admin@example.com', '$2y$10$YatdQ7px3HJisNqfWPkX3u8Vf/w9mlInrBSBV5v3BJu9V9h7LbFUW', 'admin') ON DUPLICATE KEY UPDATE email=email;
