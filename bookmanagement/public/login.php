@@ -1,3 +1,20 @@
+<?php
+// Start session and regenerate ID for session security
+session_start();
+session_regenerate_id(true);
+
+// CSRF Token Generation (if not already set)
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Secure random token
+}
+
+// Handle error messages (Sanitize user input for XSS prevention)
+if (isset($_SESSION['error_message'])) {
+    $error_message = htmlspecialchars($_SESSION['error_message'], ENT_QUOTES, 'UTF-8');
+    unset($_SESSION['error_message']);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,16 +32,18 @@
     <div class="login-container">
         <div class="login-card">
             <h1>Library Management System</h1>
-            <div class="message" style='text-align:center;color:red;padding:5px 2px'>
-            <?php
-            session_start();
-                if (isset($_SESSION['error_message'])) {
-                    echo "<p>" . $_SESSION['error_message'] . "</p>";
-                    unset($_SESSION['error_message']); // Remove message after displaying it
-                }
-            ?>
-            </div>
+            
+            <!-- Error message display -->
+            <?php if (isset($error_message)): ?>
+                <div class="message" style="text-align:center;color:red;padding:5px 2px">
+                    <p><?php echo $error_message; ?></p>
+                </div>
+            <?php endif; ?>
+
             <form id="loginForm" action="../controllers/AuthController.php" method="POST">
+                <!-- CSRF Token -->
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+
                 <div class="form-group">
                     <select id="roleSelect" name='role' required>
                         <option value="">Select Role</option>
@@ -32,20 +51,27 @@
                         <option value="user">User</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <i class="fas fa-user"></i>
-                    <input type="email" id="email" name="email" placeholder="Email" required>
+                    <label for="email" class="sr-only">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Email" required autofocus>
                 </div>
+
                 <div class="form-group">
                     <i class="fas fa-lock"></i>
+                    <label for="password" class="sr-only">Password</label>
                     <input type="password" id="password" name="password" placeholder="Password" required>
                 </div>
+
                 <button type="submit" class="login-btn">
                     <i class="fas fa-sign-in-alt"></i> Login
                 </button>
             </form>
         </div>
     </div>
+
+    <!-- Optional JS for further validation (Uncomment if needed) -->
     <!-- <script src="../js/login.js"></script> -->
 </body>
 </html>
